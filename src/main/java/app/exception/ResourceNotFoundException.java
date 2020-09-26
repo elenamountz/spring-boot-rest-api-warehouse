@@ -1,19 +1,12 @@
 package app.exception;
 
+import app.common.exception.BaseRuntimeException;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.function.Supplier;
+public class ResourceNotFoundException extends BaseRuntimeException {
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
-public class ResourceNotFoundException extends RuntimeException {
-
-    public ResourceNotFoundException() {
-        super();
-    }
-
-    public ResourceNotFoundException(String message) {
-        super(message);
+    public ResourceNotFoundException(Long id) {
+        super("Resource with " + id + " not found", HttpStatus.NOT_FOUND);
     }
 }
 

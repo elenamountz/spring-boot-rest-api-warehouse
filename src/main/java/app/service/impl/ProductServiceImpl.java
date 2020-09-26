@@ -5,6 +5,7 @@ import app.exception.ResourceNotFoundException;
 import app.model.Product;
 import app.repository.ProductRepository;
 import app.service.ProductService;
+import app.validation.ProductDtoValidator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,17 +17,21 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductDtoValidator productDtoValidator;
 
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(
+            ProductRepository productRepository,
+            ProductDtoValidator productDtoValidator) {
         this.productRepository = productRepository;
+        this.productDtoValidator = productDtoValidator;
     }
 
     @Override
     public ProductDto findById(Long id) {
         Product product = this.productRepository
                 .findById(id)
-                .orElseThrow(ResourceNotFoundException::new);
+                .orElseThrow(() -> new ResourceNotFoundException(id));
 
         return new ProductDto(product);
     }
@@ -42,6 +47,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto save(ProductDto productDto) {
+        productDtoValidator.validate(productDto);
         Product product = this.dtoToEntity(productDto);
         Product savedProduct = this.productRepository.save(product);
         return new ProductDto(savedProduct);
