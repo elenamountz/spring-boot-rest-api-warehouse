@@ -39,4 +39,9 @@ public class ProductController {
     public ProductDto update(@RequestBody ProductDto productDto) {
         return this.productService.save(productDto);
     }
+
+    @DeleteMapping("{id}")
+    public void deleteById(@PathVariable Long id) {
+        this.productService.deleteById(id);
+    }
 }
