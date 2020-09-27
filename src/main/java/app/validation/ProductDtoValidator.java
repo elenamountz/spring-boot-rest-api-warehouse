@@ -1,6 +1,6 @@
 package app.validation;
 
-import app.exception.DuplicateCodeException;
+import app.common.validation.CommonValidatorUtils;
 import app.common.validation.BaseValidator;
 import app.dto.ProductDto;
 import app.model.Product;
@@ -12,24 +12,31 @@ import org.springframework.stereotype.Component;
 public class ProductDtoValidator implements BaseValidator<ProductDto> {
 
     private final ProductRepository productRepository;
+    private final CommonValidatorUtils<ProductDto, Product> commonValidatorUtils;
 
     @Autowired
-    public ProductDtoValidator(ProductRepository productRepository) {
+    public ProductDtoValidator(
+            ProductRepository productRepository,
+            CommonValidatorUtils commonValidatorUtils) {
         this.productRepository = productRepository;
+        this.commonValidatorUtils = commonValidatorUtils;
     }
 
     @Override
     public void validate(ProductDto obj) {
-        validateUniqueCode(obj.getCode());
+        validateUniqueCode(obj);
     }
 
-    private void validateUniqueCode(String code) {
+    private void validateUniqueCode(ProductDto obj) {
+
         Product product = this.productRepository
-                .findByCode(code)
+                .findByCode(obj.getCode())
                 .orElse(null);
 
+        // Found product with the given code
         if (product != null) {
-            throw new DuplicateCodeException(code);
+            commonValidatorUtils.validateUniqueField("code", obj, product);
         }
+
     }
 }
