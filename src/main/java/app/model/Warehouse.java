@@ -18,7 +18,7 @@ public class Warehouse {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     List<Shelf> shelves = new ArrayList<>();
 
 }
