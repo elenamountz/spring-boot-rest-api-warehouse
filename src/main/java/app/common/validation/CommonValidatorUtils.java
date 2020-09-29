@@ -1,6 +1,7 @@
 package app.common.validation;
 
 import app.exception.FieldNotUniqueException;
+import app.exception.MissingRequiredFieldException;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.stereotype.Component;
 
@@ -42,6 +43,11 @@ public class CommonValidatorUtils<T, S> {
                 throw new FieldNotUniqueException(checkingObjFieldValue);
             }
         }
+    }
+
+    public void validateRequiredField(String fieldLabel, T fieldValue) {
+        if(fieldValue == null)
+            throw new MissingRequiredFieldException(fieldLabel);
     }
 
 }
