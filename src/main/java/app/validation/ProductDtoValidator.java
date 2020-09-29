@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductDtoValidator implements BaseValidator<ProductDto> {
 
+    private static final String FIELD_CODE = "code";
+
     private final ProductRepository productRepository;
     private final CommonValidatorUtils<ProductDto, Product> commonValidatorUtils;
 
@@ -27,15 +29,15 @@ public class ProductDtoValidator implements BaseValidator<ProductDto> {
         validateUniqueCode(obj);
     }
 
-    private void validateUniqueCode(ProductDto obj) {
+    private void validateUniqueCode(ProductDto productDto) {
 
         Product product = this.productRepository
-                .findByCode(obj.getCode())
+                .findByCode(productDto.getCode())
                 .orElse(null);
 
         // Found product with the given code
         if (product != null) {
-            commonValidatorUtils.validateUniqueField("code", obj, product);
+            commonValidatorUtils.validateUniqueField(FIELD_CODE, productDto, product);
         }
 
     }

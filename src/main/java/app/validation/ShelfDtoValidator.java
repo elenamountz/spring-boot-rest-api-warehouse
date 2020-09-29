@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class ShelfDtoValidator implements BaseValidator<ShelfDto> {
 
+    private static final String FIELD_CODE = "code";
+
     private final ShelfRepository shelfRepository;
     private final CommonValidatorUtils<ShelfDto, Shelf> commonValidatorUtils;
 
@@ -25,13 +27,13 @@ public class ShelfDtoValidator implements BaseValidator<ShelfDto> {
         validateUniqueCode(obj);
     }
 
-    private void validateUniqueCode(ShelfDto obj) {
+    private void validateUniqueCode(ShelfDto shelfDto) {
         Shelf shelf = this.shelfRepository
-                .findByCode(obj.getCode())
+                .findByCode(shelfDto.getCode())
                 .orElse(null);
 
         if(shelf != null) {
-            this.commonValidatorUtils.validateUniqueField("code", obj, shelf);
+            this.commonValidatorUtils.validateUniqueField(FIELD_CODE, shelfDto, shelf);
         }
     }
 
