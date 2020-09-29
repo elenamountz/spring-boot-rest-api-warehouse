@@ -1,6 +1,5 @@
 package app.controller;
 
-import app.dto.ProductDto;
 import app.dto.ShelfDto;
 import app.service.ShelfService;
 import org.springframework.beans.factory.annotation.Autowired;
