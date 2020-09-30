@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * Component about some most used validation utilities. Implementation is based on
- * generic classes and types, in order be specified on runtime. This technique helps
+ * generic classes and types, in order to be specified on runtime. This technique helps
  * us to avoid boilerplate code and multiple different implementations for the exact
  * same functionality.
  *
