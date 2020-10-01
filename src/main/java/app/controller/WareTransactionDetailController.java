@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("transaction-details")
+@RequestMapping("ware-transaction-details")
 public class WareTransactionDetailController {
 
     private final WareTransactionDetailService wareTransactionDetailService;

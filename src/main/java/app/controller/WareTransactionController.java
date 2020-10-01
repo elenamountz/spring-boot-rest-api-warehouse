@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("tran")
+@RequestMapping("ware-transactions")
 public class WareTransactionController {
 
     private final WareTransactionService wareTransactionService;
