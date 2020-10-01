@@ -12,12 +12,12 @@ import java.util.List;
 import java.util.Set;
 
 @Component
-public class WarehouseValidator implements BaseValidator<WarehouseDto> {
+public class WarehouseDtoValidator implements BaseValidator<WarehouseDto> {
 
     private final ShelfDtoValidator shelfDtoValidator;
 
     @Autowired
-    public WarehouseValidator(ShelfDtoValidator shelfDtoValidator) {
+    public WarehouseDtoValidator(ShelfDtoValidator shelfDtoValidator) {
         this.shelfDtoValidator = shelfDtoValidator;
     }
 

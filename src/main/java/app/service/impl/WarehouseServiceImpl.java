@@ -5,11 +5,9 @@ import app.dto.WarehouseDto;
 import app.exception.ResourceNotFoundException;
 import app.model.Shelf;
 import app.model.Warehouse;
-import app.repository.ShelfRepository;
 import app.repository.WarehouseRepository;
 import app.service.WarehouseService;
-import app.validation.ShelfDtoValidator;
-import app.validation.WarehouseValidator;
+import app.validation.WarehouseDtoValidator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,12 +20,12 @@ import java.util.stream.Collectors;
 public class WarehouseServiceImpl implements WarehouseService {
 
     private final WarehouseRepository warehouseRepository;
-    private final WarehouseValidator warehouseValidator;
+    private final WarehouseDtoValidator warehouseValidator;
 
     @Autowired
     public WarehouseServiceImpl(
             WarehouseRepository warehouseRepository,
-            WarehouseValidator warehouseValidator) {
+            WarehouseDtoValidator warehouseValidator) {
         this.warehouseRepository = warehouseRepository;
         this.warehouseValidator = warehouseValidator;
     }

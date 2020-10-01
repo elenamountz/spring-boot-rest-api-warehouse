@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class StockClerkValidator implements BaseValidator<StockClerkDto> {
+public class StockClerkDtoValidator implements BaseValidator<StockClerkDto> {
 
     private static final String FIELD_FIRST_NAME = "First name";
     private static final String FIELD_LAST_NAME = "Last name";
@@ -19,7 +19,7 @@ public class StockClerkValidator implements BaseValidator<StockClerkDto> {
     private final CommonValidatorUtils commonValidatorUtils;
 
     @Autowired
-    public StockClerkValidator(
+    public StockClerkDtoValidator(
             StockClerkRepository stockClerkRepository,
             CommonValidatorUtils commonValidatorUtils) {
         this.stockClerkRepository = stockClerkRepository;

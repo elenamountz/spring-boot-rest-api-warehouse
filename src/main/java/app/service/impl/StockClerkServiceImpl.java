@@ -5,7 +5,7 @@ import app.exception.ResourceNotFoundException;
 import app.model.StockClerk;
 import app.repository.StockClerkRepository;
 import app.service.StockClerkService;
-import app.validation.StockClerkValidator;
+import app.validation.StockClerkDtoValidator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,12 +17,12 @@ import java.util.stream.Collectors;
 public class StockClerkServiceImpl implements StockClerkService {
 
     private final StockClerkRepository stockClerkRepository;
-    private final StockClerkValidator stockClerkValidator;
+    private final StockClerkDtoValidator stockClerkValidator;
 
     @Autowired
     public StockClerkServiceImpl(
             StockClerkRepository stockClerkRepository,
-            StockClerkValidator stockClerkValidator) {
+            StockClerkDtoValidator stockClerkValidator) {
         this.stockClerkRepository = stockClerkRepository;
         this.stockClerkValidator = stockClerkValidator;
     }
