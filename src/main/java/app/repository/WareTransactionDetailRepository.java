@@ -1,5 +1,6 @@
 package app.repository;
 
+import app.enums.WareTransactionType;
 import app.model.WareTransactionDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,7 +15,13 @@ public interface WareTransactionDetailRepository extends JpaRepository<WareTrans
 
     @Query("SELECT SUM(detail.quantity) " +
             "FROM WareTransactionDetail detail " +
-            "WHERE detail.product.id=:productId " +
+            "INNER JOIN WareTransaction tx ON detail.wareTransaction.id=tx.id " +
+            "WHERE tx.wareTransactionType=:wareTransactionType " +
+            "AND detail.product.id=:productId " +
             "AND detail.shelf.id=:shelfId")
-    Optional<Integer> findTotalQuantityByProductAndShelf(@Param("productId") Long productId, @Param("shelfId") Long shelfId);
+    Optional<Integer> findTotalQuantityByProductAndShelfAndWareTransactionType(
+            @Param("productId") Long productId,
+            @Param("shelfId") Long shelfId,
+            @Param("wareTransactionType") WareTransactionType wareTransactionType);
+
 }
