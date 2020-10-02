@@ -9,6 +9,7 @@ import app.repository.ShelfRepository;
 import app.repository.StockClerkRepository;
 import app.repository.WareTransactionRepository;
 import app.service.WareTransactionService;
+import app.validation.WareTransactionDtoValidator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,17 +25,20 @@ public class WareTransactionServiceImpl implements WareTransactionService {
     private final StockClerkRepository stockClerkRepository;
     private final ProductRepository productRepository;
     private final ShelfRepository shelfRepository;
+    private final WareTransactionDtoValidator wareTransactionDtoValidator;
 
     @Autowired
     public WareTransactionServiceImpl(
             WareTransactionRepository wareTransactionRepository,
             StockClerkRepository stockClerkRepository,
             ProductRepository productRepository,
-            ShelfRepository shelfRepository) {
+            ShelfRepository shelfRepository,
+            WareTransactionDtoValidator wareTransactionDtoValidator) {
         this.wareTransactionRepository = wareTransactionRepository;
         this.stockClerkRepository = stockClerkRepository;
         this.productRepository = productRepository;
         this.shelfRepository = shelfRepository;
+        this.wareTransactionDtoValidator = wareTransactionDtoValidator;
     }
 
     @Override
@@ -57,6 +61,7 @@ public class WareTransactionServiceImpl implements WareTransactionService {
 
     @Override
     public WareTransactionDto save(WareTransactionDto wareTransactionDto) {
+        this.wareTransactionDtoValidator.validate(wareTransactionDto);
         WareTransaction wareTransaction = this.dtoToEntity(wareTransactionDto);
         return new WareTransactionDto(this.wareTransactionRepository.save(wareTransaction));
     }
@@ -80,7 +85,7 @@ public class WareTransactionServiceImpl implements WareTransactionService {
 
         List<WareTransactionDetailDto> wareTransactionDetailDtos = wareTransactionDto.getWareTransactionDetails();
         if(wareTransactionDetailDtos != null && wareTransactionDetailDtos.size() > 0) {
-            wareTransactionDetailDtos.forEach(wTxDetailDto -> {
+            for(WareTransactionDetailDto wTxDetailDto : wareTransactionDetailDtos) {
                 WareTransactionDetail wTxDetail = new WareTransactionDetail();
                 BeanUtils.copyProperties(wTxDetailDto, wTxDetail);
 
@@ -100,7 +105,7 @@ public class WareTransactionServiceImpl implements WareTransactionService {
 
                 wTxDetail.setWareTransaction(wareTransaction);
                 wareTransactionDetails.add(wTxDetail);
-            });
+            }
         }
         wareTransaction.setWareTransactionDetails(wareTransactionDetails);
         return wareTransaction;
