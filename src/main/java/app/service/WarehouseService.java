@@ -1,6 +1,5 @@
 package app.service;
 
-import app.dto.ShelfDto;
 import app.dto.WarehouseDto;
 
 import java.util.List;

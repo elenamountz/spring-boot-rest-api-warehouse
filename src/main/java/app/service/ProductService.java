@@ -1,7 +1,6 @@
 package app.service;
 
 import app.dto.ProductDto;
-import app.model.Product;
 
 import java.util.List;
 

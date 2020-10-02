@@ -1,8 +1,6 @@
 package app.service;
 
-import app.dto.WareTransactionDetailDto;
 import app.dto.WareTransactionDto;
-import app.model.WareTransactionDetail;
 
 import java.util.List;
 
