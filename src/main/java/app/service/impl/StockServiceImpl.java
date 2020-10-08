@@ -1,5 +1,6 @@
 package app.service.impl;
 
+import app.common.utils.DateUtils;
 import app.projection.StockProjection;
 import app.repository.WareTransactionDetailRepository;
 import app.service.StockService;
@@ -19,9 +20,13 @@ public class StockServiceImpl implements StockService {
         this.wareTransactionDetailRepository = wareTransactionDetailRepository;
     }
 
+    /**
+     * Returns a stock snapshot of a product, until the given date.
+     * Including the given date.
+     */
     @Override
     public List<StockProjection> findStockByProductAndDate(String productCode, Date date) {
         return this.wareTransactionDetailRepository
-                .findStockByProductAndDate(productCode, date);
+                .findStockByProductAndDate(productCode, DateUtils.plusDays(date, 1));
     }
 }
