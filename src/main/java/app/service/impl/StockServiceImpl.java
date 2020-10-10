@@ -1,13 +1,12 @@
 package app.service.impl;
 
-import app.common.utils.DateUtils;
 import app.projection.StockProjection;
 import app.repository.WareTransactionDetailRepository;
 import app.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -22,11 +21,11 @@ public class StockServiceImpl implements StockService {
 
     /**
      * Returns a stock snapshot of a product, until the given date.
-     * Including the given date.
+     * Accurate retrieval, using hours, minutes and seconds as parameter.
      */
     @Override
-    public List<StockProjection> findStockByProductAndDate(String productCode, Date date) {
+    public List<StockProjection> findStockByProductAndDate(String productCode, LocalDateTime date) {
         return this.wareTransactionDetailRepository
-                .findStockByProductAndDate(productCode, DateUtils.plusDays(date, 1));
+                .findStockByProductAndDate(productCode, date);
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -24,7 +24,7 @@ public class StockController {
     }
 
     @GetMapping
-    public List<StockProjection> findStockByProductAndDate(@RequestParam String productCode, @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+    public List<StockProjection> findStockByProductAndDateTime(@RequestParam String productCode, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime date) {
         return this.stockService.findStockByProductAndDate(productCode, date);
     }
 }

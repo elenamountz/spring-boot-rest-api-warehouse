@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +40,6 @@ public interface WareTransactionDetailRepository extends JpaRepository<WareTrans
             "INNER JOIN Warehouse wh ON shelf.warehouse.id=wh.id " +
             "WHERE product.code=:productCode AND tx.transactionDate<=:date " +
             "GROUP BY shelf.code, wh.description")
-    List<StockProjection> findStockByProductAndDate(@Param("productCode") String productCode, @Param("date") Date date);
+    List<StockProjection> findStockByProductAndDate(@Param("productCode") String productCode, @Param("date") LocalDateTime date);
 
 }
