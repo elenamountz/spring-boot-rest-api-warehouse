@@ -9,8 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -21,8 +21,8 @@ public class WareTransactionDto {
     private WareTransactionType wareTransactionType;
     private String description;
 
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-    private Date transactionDate;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime transactionDate;
 
     private Long stockClerkId;
     private List<WareTransactionDetailDto> wareTransactionDetails = new ArrayList<>();
