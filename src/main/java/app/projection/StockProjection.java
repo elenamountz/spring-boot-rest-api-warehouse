@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class StockProjection {
 
-    private long totalQuantity;
-    private String shelfCode;
     private String warehouseDescription;
+    private String shelfCode;
+    private long totalQuantity;
 }

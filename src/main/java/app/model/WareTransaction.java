@@ -2,7 +2,6 @@ package app.model;
 
 import app.enums.WareTransactionType;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

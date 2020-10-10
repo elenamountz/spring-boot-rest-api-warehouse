@@ -28,18 +28,18 @@ public interface WareTransactionDetailRepository extends JpaRepository<WareTrans
 
 
     @Query("SELECT NEW app.projection.StockProjection(" +
+            "wh.description, " +
+            "shelf.code, " +
             "SUM(CASE WHEN tx.wareTransactionType='IMPORT' " +
             "THEN detail.quantity " +
-            "ELSE -detail.quantity END), " +
-            "shelf.code, " +
-            "wh.description) " +
+            "ELSE -detail.quantity END)) " +
             "FROM WareTransactionDetail detail " +
             "INNER JOIN WareTransaction tx ON detail.wareTransaction.id=tx.id " +
             "INNER JOIN Product product ON detail.product.id=product.id " +
             "INNER JOIN Shelf shelf ON detail.shelf.id=shelf.id " +
             "INNER JOIN Warehouse wh ON shelf.warehouse.id=wh.id " +
             "WHERE product.code=:productCode AND tx.transactionDate<=:date " +
-            "GROUP BY shelf.code, wh.description")
+            "GROUP BY wh.description, shelf.code ")
     List<StockProjection> findStockByProductAndDate(@Param("productCode") String productCode, @Param("date") LocalDateTime date);
 
 }

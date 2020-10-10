@@ -28,7 +28,7 @@ create two or more separate DTOs (e.g. request and response data representation)
 
 Repositories are interfaces that are responsible for data persistence and retrieval. The repository layer is an abstraction that provides all
 CRUD functionality and keeps hidden the data related information (e.g. specific database implmentation) from the other layers. This layer
-should always manage entities.
+should always persist entities.
 
 ### Service
 
@@ -40,7 +40,7 @@ always receive and return DTOs.
 ### Controller
 
 Controller layer depends on the service layer and is responsible for the incoming requests and the outgoing responses. A controller determines all the
-available endpoints that a client side (or other api) is able to call. This layer should not modify the receiving or returning data.
+available endpoints that client side (or other api) is able to call. This layer should not apply logic on the receiving or returning data.
 
 # Quick Start
 
