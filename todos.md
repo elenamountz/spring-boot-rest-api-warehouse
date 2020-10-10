@@ -1,2 +1,3 @@
-- [ ] Query to search the total quantity of a product before a specific date (a stock snapshot based on the given date)
-- [ ] Run dynamic search queries using Querydsl and return paginated data
+- [x] Query to search the total quantity of a product for a specific date (a stock snapshot based on the given date)
+- [x] Add dependencies for Querydsl usage
+- [ ] Implement dynamic queries using Querydsl and return paginated data
