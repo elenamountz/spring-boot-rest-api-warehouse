@@ -65,14 +65,14 @@ In case you want to use a different database name, follow the next steps:
 
 ## Build project
 
-Build the application using the following **Maven** command:
+Build the application using the following **maven wrapper** command:
 ```
-mvn package
+./mvnw clean package
 ```
 In case you want to use this project as a dependency in other
 projects locally, use the following command:
 ```
-mvn install
+./mvnw clean install
 ```
 Each of these commands will create an executable ```.jar``` file at ```targer``` directory.
 
@@ -82,9 +82,9 @@ After packaging the application into an executable ```.jar``` file, you can star
 ```
 java -jar target/warehouse-0.0.1.jar
 ```
-Alternatively, you can start the server without packaging, using the Maven plugin by running the following command:
+Alternatively, you can start the server without packaging, by running the following command:
 ```
-mvn spring-boot:run
+./mvnw spring-boot:run
 ```
 The server will start running at http://localhost:8080.
 
