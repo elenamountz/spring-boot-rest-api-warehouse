@@ -1,8 +1,13 @@
 package app.controller;
 
+import app.common.search.SearchRequest;
+import app.common.search.PageSearchResult;
+import app.common.utils.SearchUtils;
 import app.dto.ProductDto;
+import app.search.ProductSearchCriteria;
 import app.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,4 +48,12 @@ public class ProductController {
     public void deleteById(@PathVariable Long id) {
         this.productService.deleteById(id);
     }
+
+    @PostMapping("search")
+    public Page<ProductDto> search(@RequestBody SearchRequest searchRequest) {
+        ProductSearchCriteria criteria = SearchUtils.createSearchCriteria(searchRequest, ProductSearchCriteria.class);
+        PageSearchResult<ProductDto> pageSearchResult = this.productService.search(criteria);
+        return SearchUtils.pageOf(searchRequest, pageSearchResult);
+    }
+
 }

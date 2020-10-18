@@ -2,12 +2,14 @@ package app.dto;
 
 import app.enums.MeasurementUnit;
 import app.model.Product;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class ProductDto {
 
     private Long id;

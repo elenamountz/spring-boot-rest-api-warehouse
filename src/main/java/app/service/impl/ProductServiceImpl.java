@@ -1,9 +1,11 @@
 package app.service.impl;
 
+import app.common.search.PageSearchResult;
 import app.dto.ProductDto;
 import app.exception.ResourceNotFoundException;
 import app.model.Product;
 import app.repository.ProductRepository;
+import app.search.ProductSearchCriteria;
 import app.service.ProductService;
 import app.validation.ProductDtoValidator;
 import org.springframework.beans.BeanUtils;
@@ -56,6 +58,18 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteById(Long id) {
         this.productRepository.deleteById(id);
+    }
+
+    @Override
+    public PageSearchResult<ProductDto> search(ProductSearchCriteria criteria) {
+        PageSearchResult<Product> page = this.productRepository.search(criteria);
+        List<ProductDto> dtos = page
+                .getPageData()
+                .stream()
+                .map(ProductDto::new)
+                .collect(Collectors.toList());
+
+        return new PageSearchResult<>(page.getTotalRows(), dtos);
     }
 
     private Product dtoToEntity(ProductDto productDto) {
