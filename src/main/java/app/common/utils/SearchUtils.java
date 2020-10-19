@@ -4,13 +4,18 @@ import app.common.search.BaseSearchCriteria;
 import app.common.search.PageSearchResult;
 import app.common.search.SearchRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Path;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.*;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SearchUtils {
 
@@ -34,7 +39,7 @@ public class SearchUtils {
                 : "{}";
 
         // Create search criteria object based on given stringified JSON
-        T searchCriteria = parseJson(searchCriteriaString, searchCriteriaClass);
+        T searchCriteria = JsonUtils.parse(searchCriteriaString, searchCriteriaClass);
 
         // Zero indexed page
         searchCriteria.setPageIndex(searchRequest.getPageIndex() - 1);
@@ -65,16 +70,26 @@ public class SearchUtils {
         return new PageImpl<>(data, pageable, totalRows);
     }
 
-    private static <T> T parseJson(String jsonSearchCriteriaString, Class<T> searchCriteriaClass) {
-        T searchCriteria = null;
+    public static OrderSpecifier<?> orderSpecifierOf(BaseSearchCriteria criteria, HashMap<String, Path> orderMap, String defaultOrderBy) {
+        // Specify order direction
+        Order orderDirection = (criteria.getOrderAsc() == null) || (criteria.getOrderAsc().equals(Boolean.TRUE))
+                ? Order.ASC
+                : Order.DESC;
 
-        try {
-            searchCriteria = MAPPER.readValue(jsonSearchCriteriaString, searchCriteriaClass);
-        } catch (IOException e) {
-            LOG.info("Something went wrong while parsing stringified JSON", e);
+        // Specify order field name
+        if(StringUtils.isBlank(criteria.getOrderBy()) && criteria.getOrderBy() == null) {
+            criteria.setOrderBy(defaultOrderBy);
         }
 
-        return searchCriteria;
+        // Specify order field path
+        Path orderPath = null;
+        for(Map.Entry entry : orderMap.entrySet()) {
+            if(entry.getKey().equals(criteria.getOrderBy())) {
+                orderPath = (Path) entry.getValue();
+            }
+        }
+
+        return new OrderSpecifier(orderDirection, orderPath);
     }
 
 }
