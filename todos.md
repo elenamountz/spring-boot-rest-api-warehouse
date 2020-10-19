@@ -1,6 +1,5 @@
 - [x] Query to search the total quantity of a product for a specific date (a stock snapshot based on the given date)
 - [x] Add dependencies for Querydsl usage
 - [x] Implement dynamic queries using Querydsl and return paginated data
-- [ ] Update readme
-- [ ] Create util for order specifier
+- [x] Create util for order specifier
 - [ ] Implement dynamic query for stock using projection

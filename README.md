@@ -6,6 +6,7 @@ This project built using **Java** and the following tools:
 - [MySQL](https://www.mysql.com/) as database implementation
 - [Spring Data JPA](https://spring.io/projects/spring-data-jpa) as the top layer over Hibernate
 - [Flyway](https://flywaydb.org/) as db migration tool
+- [Querydsl](http://www.querydsl.com/) as an alternative framework for dynamic queries
 
 # Application Structure
 
