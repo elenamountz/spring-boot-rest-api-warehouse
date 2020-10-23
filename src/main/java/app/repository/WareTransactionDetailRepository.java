@@ -21,7 +21,7 @@ public interface WareTransactionDetailRepository extends JpaRepository<WareTrans
             "WHERE tx.wareTransactionType=:wareTransactionType " +
             "AND detail.product.id=:productId " +
             "AND detail.shelf.id=:shelfId")
-    Optional<Integer> findTotalQuantityByProductAndShelfAndWareTransactionType(
+    Optional<Long> findTotalQuantityByProductAndShelfAndWareTransactionType(
             @Param("productId") Long productId,
             @Param("shelfId") Long shelfId,
             @Param("wareTransactionType") WareTransactionType wareTransactionType);
@@ -30,6 +30,7 @@ public interface WareTransactionDetailRepository extends JpaRepository<WareTrans
     @Query("SELECT NEW app.projection.StockProjection(" +
             "wh.description, " +
             "shelf.code, " +
+            "product.code, " +
             "SUM(CASE WHEN tx.wareTransactionType='IMPORT' " +
             "THEN detail.quantity " +
             "ELSE -detail.quantity END)) " +

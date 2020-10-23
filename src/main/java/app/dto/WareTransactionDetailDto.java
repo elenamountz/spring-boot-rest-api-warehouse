@@ -16,7 +16,7 @@ public class WareTransactionDetailDto {
     private Long wareTransactionId;
     private Long productId;
     private Long shelfId;
-    private Integer quantity;
+    private Long quantity;
 
     public WareTransactionDetailDto(WareTransactionDetail wareTransactionDetails) {
         BeanUtils.copyProperties(wareTransactionDetails, this);

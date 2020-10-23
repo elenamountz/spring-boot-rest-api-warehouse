@@ -29,6 +29,6 @@ public class WareTransactionDetail {
     private Shelf shelf;
 
     @Column(name = "quantity")
-    private Integer quantity;
+    private Long quantity;
 
 }

@@ -73,15 +73,15 @@ public class WareTransactionDtoValidator implements BaseValidator<WareTransactio
             Long productId = wTxDetail.getProductId();
             Long shelfId = wTxDetail.getShelfId();
 
-            Integer totalImports = this.wareTransactionDetailRepository
+            Long totalImports = this.wareTransactionDetailRepository
                     .findTotalQuantityByProductAndShelfAndWareTransactionType(productId, shelfId, WareTransactionType.IMPORT)
-                    .orElse(0);
-            Integer totalExports = this.wareTransactionDetailRepository
+                    .orElse((long) 0);
+            Long totalExports = this.wareTransactionDetailRepository
                     .findTotalQuantityByProductAndShelfAndWareTransactionType(productId, shelfId, WareTransactionType.EXPORT)
-                    .orElse(0);
+                    .orElse((long) 0);
 
-            Integer totalExistingQuantity = totalImports - totalExports;
-            Integer requestedQuantity = wTxDetail.getQuantity();
+            Long totalExistingQuantity = totalImports - totalExports;
+            Long requestedQuantity = wTxDetail.getQuantity();
 
             if (requestedQuantity > totalExistingQuantity) {
                 throw new NotEnoughQuantityToExportException("product " + productId + " in shelf " + shelfId);
