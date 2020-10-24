@@ -1,5 +1,6 @@
 package app.controller;
 
+import app.dto.StockDto;
 import app.projection.StockProjection;
 import app.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,13 @@ public class StockController {
         this.stockService = stockService;
     }
 
-    @GetMapping
+    @GetMapping("snapshot")
     public List<StockProjection> findStockByProductAndDateTime(@RequestParam String productCode, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime date) {
         return this.stockService.findStockByProductAndDate(productCode, date);
+    }
+
+    @GetMapping()
+    public List<StockDto> findAll() {
+        return this.stockService.findAll();
     }
 }
