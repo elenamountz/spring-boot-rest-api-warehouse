@@ -2,4 +2,4 @@
 - [x] Add dependencies for Querydsl usage
 - [x] Implement dynamic queries using Querydsl and return paginated data
 - [x] Create util for order specifier
-- [ ] Implement dynamic query for stock using projection
+- [x] Implement dynamic query for stock using db view, in order to search the current available stock through all warehouses
