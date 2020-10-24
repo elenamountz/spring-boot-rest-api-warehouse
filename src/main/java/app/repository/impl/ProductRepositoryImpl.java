@@ -19,7 +19,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.HashMap;
 
-public class ProductRepositoryCustomImpl extends QueryExecutor implements ProductRepositoryCustom {
+public class ProductRepositoryImpl extends QueryExecutor implements ProductRepositoryCustom {
 
     private static final QProduct qProduct = QProduct.product;
 
