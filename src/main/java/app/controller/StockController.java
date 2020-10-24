@@ -1,14 +1,16 @@
 package app.controller;
 
+import app.common.search.PageSearchResult;
+import app.common.search.SearchRequest;
+import app.common.utils.SearchUtils;
 import app.dto.StockDto;
 import app.projection.StockProjection;
+import app.search.StockSearchCriteria;
 import app.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,8 +31,15 @@ public class StockController {
         return this.stockService.findStockByProductAndDate(productCode, date);
     }
 
-    @GetMapping()
+    @GetMapping
     public List<StockDto> findAll() {
         return this.stockService.findAll();
+    }
+
+    @PostMapping("search")
+    public Page<StockDto> search(@RequestBody SearchRequest searchRequest) {
+        StockSearchCriteria criteria = SearchUtils.createSearchCriteria(searchRequest, StockSearchCriteria.class);
+        PageSearchResult<StockDto> pageSearchResult = this.stockService.search(criteria);
+        return SearchUtils.pageOf(searchRequest, pageSearchResult);
     }
 }

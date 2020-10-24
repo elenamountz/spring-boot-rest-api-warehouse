@@ -1,9 +1,11 @@
 package app.service.impl;
 
+import app.common.search.PageSearchResult;
 import app.dto.StockDto;
 import app.model.Stock;
 import app.projection.StockProjection;
 import app.repository.StockRepository;
+import app.search.StockSearchCriteria;
 import app.service.StockService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,18 @@ public class StockServiceImpl implements StockService {
                 .stream()
                 .map(StockDto::new)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public PageSearchResult<StockDto> search(StockSearchCriteria criteria) {
+        PageSearchResult<Stock> page = this.stockRepository.search(criteria);
+        List<StockDto> dtos = page
+                .getPageData()
+                .stream()
+                .map(StockDto::new)
+                .collect(Collectors.toList());
+
+        return new PageSearchResult<>(page.getTotalRows(), dtos);
     }
 
     private Stock dtoToEntity(StockDto stockDto) {

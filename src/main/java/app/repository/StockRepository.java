@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface StockRepository extends JpaRepository<Stock, Long> {
+public interface StockRepository extends JpaRepository<Stock, Long>, StockRepositoryCustom {
 
     @Query("SELECT NEW app.projection.StockProjection(" +
             "wh.description, " +
