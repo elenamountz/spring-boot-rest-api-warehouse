@@ -75,7 +75,7 @@ projects locally, use the following command:
 ```
 ./mvnw clean install
 ```
-Each of these commands will create an executable ```.jar``` file at ```targer``` directory.
+Each of these commands will create an executable ```.jar``` file at ```target``` directory.
 
 ## Run project
 
